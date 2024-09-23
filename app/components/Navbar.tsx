@@ -1,6 +1,11 @@
+"use client";
 import React from "react";
+import { useState } from "react";
+import Link from "next/link";
 
 function Navbar() {
+  const [loggedIn, checkLoggedIn] = useState("");
+
   return (
     <>
       <div className="navbar sticky top-0 z-50 bg-base-100">
@@ -14,19 +19,30 @@ function Navbar() {
             <li>
               <a>Link</a>
             </li>
-            <li>
-              <details>
-                <summary>Parent</summary>
-                <ul className="bg-base-100 rounded-t-none p-2">
-                  <li>
-                    <a>Link 1</a>
-                  </li>
-                  <li>
-                    <a>Link 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
+            {loggedIn ? (
+              <li>
+                <details>
+                  <summary>Parent</summary>
+                  <ul className="bg-base-100 rounded-t-none p-2">
+                    <li>
+                      <a>Link 1</a>
+                    </li>
+                    <li>
+                      <a>Link 2</a>
+                    </li>
+                  </ul>
+                </details>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <Link href="/login">Log in</Link>
+                </li>
+                <li>
+                  <Link href="/signup">Sign Up</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
