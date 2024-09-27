@@ -1,10 +1,41 @@
 "use client";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 function Navbar() {
-  const [loggedIn, checkLoggedIn] = useState("");
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState("");
+
+  const getUserDetails = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get("/api/users/me");
+      setData(res.data.data.name);
+      setLoading(false);
+    } catch {
+      setLoading(false);
+      console.log("i cant fetch");
+    }
+  };
+
+  const logout = async () => {
+    try {
+      const stat = await axios.get("/api/users/logout");
+      // router.push("/");
+      router.replace("/");
+      router.refresh();
+    } catch {
+      console.log("couldnt log out");
+    }
+  };
+
+  useEffect(() => {
+    getUserDetails();
+  }, []);
 
   return (
     <>
@@ -19,13 +50,31 @@ function Navbar() {
             <li>
               <a>Link</a>
             </li>
-            {loggedIn ? (
+
+            {loading ? (
+              <>
+                <li>
+                  <div
+                    role="status"
+                    className="flex items-center justify-center h-9 max-w-sm bg-base-300 rounded-md animate-pulse"
+                  >
+                    <svg
+                      className="w-16"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 16 20"
+                    ></svg>
+                  </div>
+                </li>
+              </>
+            ) : data ? (
               <li>
                 <details>
-                  <summary>Parent</summary>
+                  <summary>{data}</summary>
                   <ul className="bg-base-100 rounded-t-none p-2">
                     <li>
-                      <a>Link 1</a>
+                      <button onClick={logout}>Logout</button>
                     </li>
                     <li>
                       <a>Link 2</a>

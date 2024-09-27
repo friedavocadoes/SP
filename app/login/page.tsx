@@ -17,7 +17,7 @@ export default function SignupPage() {
     try {
       setLoading(true);
       const response = await axios.post("/api/users/login", user);
-      router.push("/");
+      router.push("/sites");
     } catch (error: any) {
       console.log("Login failed", error.message);
     } finally {
@@ -48,8 +48,8 @@ export default function SignupPage() {
           onChange={(e) => setUser({ ...user, password: e.target.value })}
           placeholder="password"
         />
-        <button onClick={onLogin} />
-        <Link href="/signup">Visit signup page</Link>
+        <button onClick={onLogin}>Log In</button>
+        {/* <Link href="/signup">Visit signup page</Link> */}
       </div>
     </>
   );

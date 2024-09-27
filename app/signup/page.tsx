@@ -10,7 +10,7 @@ export default function SignupPage() {
   const [user, setUser] = React.useState({
     email: "",
     password: "",
-    username: "",
+    name: "",
   });
 
   const onSignup = async () => {
@@ -26,14 +26,14 @@ export default function SignupPage() {
     <>
       <Navbar />
       <div className="p-5 bg-base-200">
-        <label htmlFor="username">username</label>
+        <label htmlFor="name">Name</label>
         <br />
         <input
-          id="username"
+          id="name"
           type="text"
-          value={user.username}
-          onChange={(e) => setUser({ ...user, username: e.target.value })}
-          placeholder="username"
+          value={user.name}
+          onChange={(e) => setUser({ ...user, name: e.target.value })}
+          placeholder="name"
         />
         <br />
         <br />
