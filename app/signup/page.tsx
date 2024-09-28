@@ -80,6 +80,7 @@ export default function LoginPage() {
                   </a>
                 </label> */}
               </div>
+
               <div className="form-control mt-6">
                 <Link href="/">
                   <button onClick={onSignup} className="btn btn-primary">
