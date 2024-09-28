@@ -2,7 +2,7 @@
 import Navbar from "@/app/components/Navbar";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Calendar } from "react-multi-date-picker"; // Assuming a date-picker library is added
+import { Calendar } from "react-multi-date-picker";
 import DatePicker from "react-multi-date-picker";
 
 interface Materials {
@@ -59,14 +59,14 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
       {/* Hero Section */}
       <div
         className="relative h-96 bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: `url(https://via.placeholder.com/1200x400)` }}
+        style={{ backgroundImage: "./site-def.jpeg" }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="z-10 text-center text-white">
           <h1 className="text-5xl font-bold mb-4">
             Site {id} - Downtown Project
           </h1>
-          <p className="text-xl mb-2">Managed by: John Doe</p>
+          <p className="text-xl mb-2">Managed by: Arun Mohan</p>
           <p className="text-lg mb-2">Location: African Peninsula</p>
           <p className="text-lg">
             Description: This project involves the construction of a multi-story
@@ -143,6 +143,7 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
                 <Calendar
                   value={materials.map((mat) => mat.deliveryDate)}
                   multiple
+                  className="z-1"
                 />
               </div>
             </div>

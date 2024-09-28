@@ -1,5 +1,6 @@
 import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
+import Project from "@/models/projectModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 
@@ -34,8 +35,48 @@ export async function POST(request: NextRequest) {
       password,
     });
 
-    // Saves the new user to the database.
+    // create a project entry also(empty)
+    const newProj = new Project({
+      email,
+      projects: [
+        {
+          "projectName": "Downtown Building",
+          "location": "Downtown, City A",
+          "description": "High-rise building project.",
+          "dailyLogs": [
+            {
+              "materialType": "Cement",
+              "quantity": 100,
+              "cost": 500,
+              "deliveryDate": "2024-09-27"
+            },
+            {
+              "materialType": "Steel",
+              "quantity": 50,
+              "cost": 700,
+              "deliveryDate": "2024-09-28"
+            }
+          ]
+        },
+        {
+          "projectName": "Mall Renovation",
+          "location": "Uptown, City B",
+          "description": "Renovation of an old shopping mall.",
+          "dailyLogs": [
+            {
+              "materialType": "Bricks",
+              "quantity": 200,
+              "cost": 300,
+              "deliveryDate": "2024-09-29"
+            }
+          ]
+        }
+      ]
+    });
+
+    // Saves the new user and project to the database.
     const savedUser = await newUser.save();
+    await newProj.save();
 
     return NextResponse.json({
       message: "User created successfully",

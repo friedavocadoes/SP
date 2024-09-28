@@ -39,7 +39,7 @@ function Navbar() {
 
   return (
     <>
-      <div className="navbar sticky top-0 z-50 bg-base-100 sm:px-8 md:px-40">
+      <div className="navbar sticky top-0 z-[1000] bg-base-300 bg-opacity-30 backdrop-filter backdrop-blur-lg sm:px-8 md:px-40">
         <div className="flex-1">
           <a href="/" className="btn btn-ghost text-xl">
             SP
@@ -74,9 +74,9 @@ function Navbar() {
                     <li>
                       <button onClick={logout}>Logout</button>
                     </li>
-                    <li>
+                    {/* <li>
                       <a>Link 2</a>
-                    </li>
+                    </li> */}
                   </ul>
                 </details>
               </li>
