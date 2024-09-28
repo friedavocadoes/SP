@@ -12,12 +12,12 @@ export async function GET(request:NextRequest){
 
         // Extract user ID from the authentication token
         const userId = await getDataFromToken(request);
-        console.log(`user is ${userId}`);
+        // console.log(`user is ${userId}`);
 
         // Find the user in the database based on the user ID
         const user = await User.findOne({_id: userId}).
         select("-password");
-        console.log(`user isss ${user}`);
+        // console.log(`user isss ${user}`);
         return NextResponse.json({
             message: "User found",
             data: user

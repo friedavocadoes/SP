@@ -15,10 +15,10 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.6.3",
     "next": "14.2.13",
-    "next-auth": "^4.24.7",
     "nodemailer": "^6.9.15",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -26,6 +26,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/uuid": "^10.0.0",
     "daisyui": "^4.12.10",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",

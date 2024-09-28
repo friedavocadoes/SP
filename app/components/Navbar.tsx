@@ -39,7 +39,7 @@ function Navbar() {
 
   return (
     <>
-      <div className="navbar sticky top-0 z-50 bg-base-100">
+      <div className="navbar sticky top-0 z-50 bg-base-100 sm:px-8 md:px-40">
         <div className="flex-1">
           <a href="/" className="btn btn-ghost text-xl">
             SP
