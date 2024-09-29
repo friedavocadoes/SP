@@ -74,9 +74,6 @@ function Navbar() {
                     <li>
                       <button onClick={logout}>Logout</button>
                     </li>
-                    {/* <li>
-                      <a>Link 2</a>
-                    </li> */}
                   </ul>
                 </details>
               </li>
