@@ -54,6 +54,25 @@ export default function SiteDashboard() {
           Your Dashboard
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* "Add New Project" Card */}
+          <div
+            className="card shadow-md border-dashed border-4 border-accent text-primary-content cursor-pointer flex items-center align-center h-full"
+            onClick={() => {
+              console.log("Add New Project clicked");
+              setShowModal(true); // Open modal on click
+            }}
+          >
+            <div className="card-body">
+              <img
+                src="./plus.png"
+                alt=""
+                className="w-[80%] justify-center mx-auto"
+              />
+              <h1 className="card-title justify-center text-secondary">
+                Add New Project
+              </h1>
+            </div>
+          </div>
           {projectList.map((site) => (
             <div
               key={site.id}
@@ -75,26 +94,6 @@ export default function SiteDashboard() {
               </div>
             </div>
           ))}
-
-          {/* "Add New Project" Card */}
-          <div
-            className="card shadow-md border-dashed border-4 border-accent text-primary-content cursor-pointer flex items-center align-center h-full"
-            onClick={() => {
-              console.log("Add New Project clicked");
-              setShowModal(true); // Open modal on click
-            }}
-          >
-            <div className="card-body">
-              <img
-                src="./plus.png"
-                alt=""
-                className="w-[80%] justify-center mx-auto"
-              />
-              <h1 className="card-title justify-center text-secondary">
-                Add New Project
-              </h1>
-            </div>
-          </div>
         </div>
       </div>
 
