@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Link href="/sites/">SITE</Link>
+      <Link href="/sites/">Load Site</Link>
     </>
   );
 }
