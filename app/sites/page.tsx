@@ -9,13 +9,13 @@ const sites = [
     id: 1,
     name: "Site A",
     description: "Downtown project",
-    address: "African Peninsula",
+    address: "PNB",
   },
   {
     id: 2,
     name: "Site B",
     description: "Mall construction",
-    address: "Murica",
+    address: "WBS",
   },
 ];
 
