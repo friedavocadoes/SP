@@ -1,27 +1,15 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useRouter } from "next/navigation";
-import { v4 as uuidv4 } from "uuid"; // For generating unique IDs
+import axios from "axios";
 
 const sites = [
   {
     id: 1,
-    name: "Site A",
-    description: "Downtown project",
-    address: "PNB",
-  },
-  {
-    id: 2,
-    name: "Site B",
-    description: "Mall construction",
-    address: "WBS",
-  },
-  {
-    id: 3,
-    name: "Site C",
-    description: "Super construction",
-    address: "WBS",
+    projectName: "Sample data",
+    description: "This is default data before fetched from mongoDB",
+    location: "random location",
   },
 ];
 
@@ -36,21 +24,43 @@ export default function SiteDashboard() {
 
   const router = useRouter();
 
+  const getEmail = async () => {
+    const uData = await axios.get("/api/users/me");
+    const email = uData.data.data.email;
+    return email;
+  };
+
+  const showProjects = async () => {
+    const email = await getEmail();
+    console.log(email);
+    const response = await axios.post("/api/project/fetch", { email });
+    console.log(response.data.data.projects);
+    setProjectList(response.data.data.projects);
+  };
+
   // Function to handle form submission
-  const handleAddProject = () => {
+  const handleAddProject = async () => {
+    const email = await getEmail();
     const newProject = {
-      id: uuidv4(), // Generate a unique ID for the new project
-      name: projectName,
+      email: email,
+      projectName: projectName,
       description: projectDescription,
-      address: projectAddress,
+      location: projectAddress,
     };
 
-    setProjectList([...projectList, newProject]); // Update project list with new project
+    await axios.post("api/project/save", newProject);
+
     setShowModal(false); // Close the modal after adding project
     setProjectName(""); // Reset input fields
     setProjectDescription("");
     setProjectAddress("");
+
+    await showProjects();
   };
+
+  useEffect(() => {
+    showProjects();
+  }, []);
 
   return (
     <>
@@ -64,7 +74,6 @@ export default function SiteDashboard() {
           <div
             className="card shadow-md border-dashed border-4 border-accent text-primary-content cursor-pointer flex items-center align-center h-full"
             onClick={() => {
-              console.log("Add New Project clicked");
               setShowModal(true); // Open modal on click
             }}
           >
@@ -91,11 +100,11 @@ export default function SiteDashboard() {
                   alt="site image"
                   className="h-48 rounded-sm"
                 />
-                <h2 className="card-title text-accent">{site.name}</h2>
+                <h2 className="card-title text-accent">{site.projectName}</h2>
                 <p className="text-secondary">{site.description}</p>
                 <p className="text-secondary">
                   <span className="font-bold text-primary">Address:</span>{" "}
-                  {site.address}
+                  {site.location}
                 </p>
               </div>
             </div>
@@ -115,7 +124,7 @@ export default function SiteDashboard() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Enter project name"
+                  placeholder="Enter a name for your project"
                   className="input input-bordered"
                   value={projectName}
                   onChange={(e) => setProjectName(e.target.value)}
@@ -126,12 +135,13 @@ export default function SiteDashboard() {
                 <label className="label">
                   <span className="label-text">Description</span>
                 </label>
-                <textarea
+                <input
+                  type="text"
                   placeholder="Enter project description"
                   className="textarea textarea-bordered"
                   value={projectDescription}
                   onChange={(e) => setProjectDescription(e.target.value)}
-                ></textarea>
+                />
               </div>
 
               <div className="form-control mb-4">
@@ -140,7 +150,7 @@ export default function SiteDashboard() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Enter project address"
+                  placeholder="Enter project location"
                   className="input input-bordered"
                   value={projectAddress}
                   onChange={(e) => setProjectAddress(e.target.value)}

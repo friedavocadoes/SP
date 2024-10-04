@@ -31,7 +31,11 @@ const infoSchema = new mongoose.Schema({
     description: {
       type: String,
     },
-    dailyLogs: [dailyLogSchema], 
+    dailyLogs: [dailyLogSchema],
+    archived: {
+      type: Boolean,
+      default: false,
+    },
   });
 
 const projectSchema = new mongoose.Schema({
@@ -40,7 +44,8 @@ const projectSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    projects: [infoSchema]
+    projects: [infoSchema],
+    
 })
 
 const Project = mongoose.models.projects || mongoose.model("projects", projectSchema);
