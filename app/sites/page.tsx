@@ -17,6 +17,12 @@ const sites = [
     description: "Mall construction",
     address: "WBS",
   },
+  {
+    id: 3,
+    name: "Site C",
+    description: "Super construction",
+    address: "WBS",
+  },
 ];
 
 const siteImage = "./site-def.jpeg";
