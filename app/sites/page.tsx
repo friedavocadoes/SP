@@ -2,29 +2,25 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import { useRouter } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";
 
-const sites = [
+const siteImage = "./site-def.jpeg";
+const Prjt = [
   {
-    id: 1,
-    projectName: "Sample data",
-    description: "This is default data before fetched from mongoDB",
-    location: "random location",
+    projectName: "",
+    description: "",
+    location: "",
   },
 ];
-
-const siteImage = "./site-def.jpeg";
 
 export default function SiteDashboard() {
   const [showModal, setShowModal] = useState(false); // Modal visibility state
   const [projectName, setProjectName] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [projectAddress, setProjectAddress] = useState("");
-  const [projectList, setProjectList] = useState(sites); // Initial project list state
-
-  const router = useRouter();
+  const [projectList, setProjectList] = useState(Prjt);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getEmail = async () => {
     const uData = await axios.get("/api/users/me");
@@ -33,11 +29,13 @@ export default function SiteDashboard() {
   };
 
   const showProjects = async () => {
+    setIsLoading(true);
     const email = await getEmail();
     console.log(email);
     const response = await axios.post("/api/project/fetch", { email });
     console.log(response.data.data.projects);
     setProjectList(response.data.data.projects);
+    setIsLoading(false);
   };
 
   // Function to handle form submission
@@ -90,33 +88,57 @@ export default function SiteDashboard() {
               </h1>
             </div>
           </div>
-          {projectList.map((site, index) => (
-            <Link
-              href={{
-                pathname: `/sites/${index + 1}`,
-                query: { data: JSON.stringify(projectList[index]) },
-              }}
-            >
-              <div
-                key={index}
-                className="card shadow-lg bg-neutral text-primary-content cursor-pointer"
-              >
-                <div className="card-body -m-2">
-                  <img
-                    src={siteImage}
-                    alt="site image"
-                    className="h-48 rounded-sm"
-                  />
-                  <h2 className="card-title text-accent">{site.projectName}</h2>
-                  <p className="text-secondary">{site.description}</p>
-                  <p className="text-secondary">
-                    <span className="font-bold text-primary">Address:</span>{" "}
-                    {site.location}
-                  </p>
-                </div>
-              </div>
-            </Link>
-          ))}
+          {isLoading ? (
+            <>
+              {Array(5)
+                .fill(Array)
+                .map((_, index) => (
+                  <div
+                    key={index}
+                    className="card shadow-lg bg-neutral animate-pulse text-primary-content cursor-pointer"
+                  >
+                    <div className="card-body -m-2">
+                      <div className="h-48 bg-neutral-600 rounded-sm mb-4" />
+                      <div className="h-6 bg-neutral-600 rounded w-3/4 mb-2"></div>
+                      <div className="h-4 bg-neutral-600 rounded w-5/6 mb-1"></div>
+                      <div className="h-4 bg-neutral-600 rounded w-2/3"></div>
+                    </div>
+                  </div>
+                ))}
+            </>
+          ) : (
+            <>
+              {projectList.map((site, index) => (
+                <Link
+                  href={{
+                    pathname: `/sites/${index + 1}`,
+                    query: { data: JSON.stringify(projectList[index]) },
+                  }}
+                >
+                  <div
+                    key={index}
+                    className="card shadow-lg bg-neutral text-primary-content cursor-pointer"
+                  >
+                    <div className="card-body -m-2">
+                      <img
+                        src={siteImage}
+                        alt="site image"
+                        className="h-48 rounded-sm"
+                      />
+                      <h2 className="card-title text-accent">
+                        {site.projectName}
+                      </h2>
+                      <p className="text-secondary">{site.description}</p>
+                      <p className="text-secondary">
+                        <span className="font-bold text-primary">Address:</span>{" "}
+                        {site.location}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </>
+          )}
         </div>
       </div>
 
