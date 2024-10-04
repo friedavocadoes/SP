@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import Link from "next/link";
 
 const sites = [
   {
@@ -88,26 +89,32 @@ export default function SiteDashboard() {
               </h1>
             </div>
           </div>
-          {projectList.map((site) => (
-            <div
-              key={site.id}
-              className="card shadow-lg bg-neutral text-primary-content cursor-pointer"
-              onClick={() => router.push(`/sites/${site.id}`)}
+          {projectList.map((site, index) => (
+            <Link
+              href={{
+                pathname: `/sites/${index + 1}`,
+                query: { data: JSON.stringify(projectList[index]) },
+              }}
             >
-              <div className="card-body -m-2">
-                <img
-                  src={siteImage}
-                  alt="site image"
-                  className="h-48 rounded-sm"
-                />
-                <h2 className="card-title text-accent">{site.projectName}</h2>
-                <p className="text-secondary">{site.description}</p>
-                <p className="text-secondary">
-                  <span className="font-bold text-primary">Address:</span>{" "}
-                  {site.location}
-                </p>
+              <div
+                key={index}
+                className="card shadow-lg bg-neutral text-primary-content cursor-pointer"
+              >
+                <div className="card-body -m-2">
+                  <img
+                    src={siteImage}
+                    alt="site image"
+                    className="h-48 rounded-sm"
+                  />
+                  <h2 className="card-title text-accent">{site.projectName}</h2>
+                  <p className="text-secondary">{site.description}</p>
+                  <p className="text-secondary">
+                    <span className="font-bold text-primary">Address:</span>{" "}
+                    {site.location}
+                  </p>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

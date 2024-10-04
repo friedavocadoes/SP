@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Calendar } from "react-multi-date-picker";
 import DatePicker from "react-multi-date-picker";
+import { useSearchParams } from "next/navigation";
 
 interface Materials {
   materialType: String;
@@ -28,12 +29,18 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
   const [summary, setSummary] = useState<any>(sampleSummary);
   const [selectedDateRange, setSelectedDateRange] = useState<any>(null);
   const [filteredLogs, setFilteredLogs] = useState<Materials[]>([]);
+  const [parentInfo, setParentInfo] = useState({
+    projectName: "",
+    location: "",
+    description: "",
+  });
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (id) {
-      // Example API calls to fetch materials and summary
-      // fetch(`/api/materials?siteId=${id}`).then(setMaterials);
-      // fetch(`/api/materials/summary?siteId=${id}`).then(setSummary);
+      const result = JSON.parse(searchParams.get("data"));
+      console.log(result);
+      setParentInfo(result);
     }
   }, [id]);
 
@@ -64,14 +71,11 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="z-10 text-center text-white">
           <h1 className="text-5xl font-bold mb-4">
-            Site {id} - Downtown Project
+            Site {id} - {parentInfo.projectName}
           </h1>
           <p className="text-xl mb-2">Managed by: Arun Mohan</p>
-          <p className="text-lg mb-2">Location: African Peninsula</p>
-          <p className="text-lg">
-            Description: This project involves the construction of a multi-story
-            residential building in the downtown area.
-          </p>
+          <p className="text-lg mb-2">Location: {parentInfo.location}</p>
+          <p className="text-lg">Description: {parentInfo.description}</p>
         </div>
       </div>
 
