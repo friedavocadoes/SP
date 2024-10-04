@@ -49,8 +49,7 @@ The **Site Dashboard Management System** is a web-based application that allows 
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/username/site-dashboard-management.git
-   cd site-dashboard-management
+   git clone https://github.com/friedavocadoes/SP.git/ .
    ```
 
 2. **Install dependencies:**
