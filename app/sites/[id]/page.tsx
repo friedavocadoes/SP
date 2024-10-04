@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import Navbar from "@/app/components/Navbar";
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -38,9 +39,12 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
 
   useEffect(() => {
     if (id) {
-      const result = JSON.parse(searchParams.get("data"));
-      console.log(result);
-      setParentInfo(result);
+      const dataString = searchParams.get("data");
+      if (dataString) {
+        const result = JSON.parse(dataString);
+        console.log(result);
+        setParentInfo(result);
+      }
     }
   }, [id]);
 
