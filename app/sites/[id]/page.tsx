@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Calendar } from "react-multi-date-picker";
 import DatePicker from "react-multi-date-picker";
 import { useSearchParams } from "next/navigation";
+import axios from "axios";
 
 interface Materials {
   materialType: String;
@@ -35,9 +36,18 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
     location: "",
     description: "",
   });
+  const [manager, setManager] = useState("");
   const searchParams = useSearchParams();
 
-  useEffect(() => {
+  const getManager = async () => {
+    const uData = await axios.get("/api/users/me");
+    const name = uData.data.data.name;
+    return name;
+  };
+
+  const infoSetter = async () => {
+    const uname = await getManager();
+    setManager(uname);
     if (id) {
       const dataString = searchParams.get("data");
       if (dataString) {
@@ -46,6 +56,10 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
         setParentInfo(result);
       }
     }
+  };
+
+  useEffect(() => {
+    infoSetter();
   }, [id]);
 
   // Filter logs by selected date range
@@ -77,7 +91,7 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
           <h1 className="text-5xl font-bold mb-4">
             Site {id} - {parentInfo.projectName}
           </h1>
-          <p className="text-xl mb-2">Managed by: Arun Mohan</p>
+          <p className="text-xl mb-2">Managed by: {manager}</p>
           <p className="text-lg mb-2">Location: {parentInfo.location}</p>
           <p className="text-lg">Description: {parentInfo.description}</p>
         </div>
