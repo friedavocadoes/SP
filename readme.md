@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# **Site Dashboard Management System**
 
-## Getting Started
+A dashboard management system to track, add, and view project sites. This application is built using **React** and **Next.js** for the frontend, and it interacts with the backend to fetch and save project details for a seamless user experience.
 
-First, run the development server:
+## **Table of Contents**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. [Project Overview](#project-overview)
+2. [Features](#features)
+3. [Tech Stack](#tech-stack)
+4. [Setup and Installation](#setup-and-installation)
+5. [API Endpoints](#api-endpoints)
+6. [Usage](#usage)
+7. [Folder Structure](#folder-structure)
+8. [Contributing](#contributing)
+9. [License](#license)
+
+---
+
+## **Project Overview**
+
+The **Site Dashboard Management System** is a web-based application that allows users to create, view, and manage project sites. Users can add new project sites by providing project name, description, and location. The dashboard displays these projects in a card-based layout. Each project can be clicked to view more details.
+
+## **Features**
+
+- 📝 **Add New Projects**: Users can add new projects with name, description, and location using a modal form.
+- 🗃️ **View Existing Projects**: Displays a list of all added projects in a clean, card-based format.
+- 🔄 **Dynamic Loading**: The app dynamically fetches and displays the projects associated with the logged-in user.
+- 💡 **Skeleton Loading Animation**: Shows a skeleton loader while data is being fetched, providing better UX.
+- 🔒 **Secure Access**: Projects are fetched based on the logged-in user's email, ensuring data privacy.
+
+## **Tech Stack**
+
+- **Frontend**: React, Next.js, Tailwind CSS
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Libraries**: Axios for HTTP requests, React Hook Form for form handling
+- **Styling**: Tailwind CSS for modern and responsive design
+- **Authentication**: JWT for secure user authentication
+
+## **Setup and Installation**
+
+### Prerequisites
+
+- Node.js (>=14.0.0)
+- npm or yarn
+- MongoDB instance (local or cloud-based)
+
+### Installation Steps
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/username/site-dashboard-management.git
+   cd site-dashboard-management
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+   or
+
+   ```bash
+   yarn install
+   ```
+
+3. **Setup environment variables:**
+   Create a `.env` file in the root directory and add the following:
+
+   ```bash
+   MONGODB_URI=<Your MongoDB URI>
+   JWT_SECRET=<Your JWT Secret>
+   NEXT_PUBLIC_API_URL=http://localhost:3000
+   ```
+
+4. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+   or
+   ```bash
+   yarn dev
+   ```
+   The application should now be running at [http://localhost:3000](http://localhost:3000).
+
+### **API Endpoints**
+
+The application interacts with several backend endpoints to fetch, save, and update project data. Below is a list of the API routes:
+
+- **User Authentication**
+  - `GET /api/users/me`: Get current user information based on JWT token.
+- **Project Management**
+  - `POST /api/project/fetch`: Fetch all projects for the logged-in user.
+  - `POST /api/project/save`: Save a new project for the user.
+
+### **Usage**
+
+1. **Login to your account**: The app authenticates using JWT tokens. Once logged in, your projects will be fetched and displayed.
+2. **Add a new project**: Click on the 'Add New Project' card to open a modal form. Fill in the project details and click 'Add Project' to save.
+3. **View Projects**: The dashboard displays your projects as cards. Click on any project card to view more details.
+
+### **Folder Structure**
+
+Here's a quick overview of the folder structure to help you navigate the project:
+
+```
+site-dashboard-management/
+├── components/               # Reusable React components (e.g., Navbar, Modal)
+├── pages/                    # Next.js pages (e.g., index.js, dashboard.js)
+│   ├── api/                  # API routes for handling backend requests
+│   │   └── project/          # Project-related API routes
+│   └── sites/                # Pages for individual project sites
+├── public/                   # Public assets (e.g., images, icons)
+├── styles/                   # Global CSS and Tailwind configurations
+├── .env                      # Environment variables (Not included in Git)
+├── README.md                 # Project documentation
+└── package.json              # Project dependencies and scripts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### **Contributing**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Contributions are welcome! If you find a bug or have a feature request, please create an issue on GitHub. Feel free to fork the repository and submit a pull request with your changes.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### **License**
 
-## Learn More
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If you have any questions or need further assistance, feel free to reach out. Happy coding! ✨
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
