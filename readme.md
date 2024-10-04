@@ -10,9 +10,8 @@ A dashboard management system to track, add, and view project sites. This applic
 4. [Setup and Installation](#setup-and-installation)
 5. [API Endpoints](#api-endpoints)
 6. [Usage](#usage)
-7. [Folder Structure](#folder-structure)
-8. [Contributing](#contributing)
-9. [License](#license)
+7. [Contributing](#contributing)
+8. [License](#license)
 
 ---
 
@@ -100,24 +99,6 @@ The application interacts with several backend endpoints to fetch, save, and upd
 1. **Login to your account**: The app authenticates using JWT tokens. Once logged in, your projects will be fetched and displayed.
 2. **Add a new project**: Click on the 'Add New Project' card to open a modal form. Fill in the project details and click 'Add Project' to save.
 3. **View Projects**: The dashboard displays your projects as cards. Click on any project card to view more details.
-
-### **Folder Structure**
-
-Here's a quick overview of the folder structure to help you navigate the project:
-
-```
-site-dashboard-management/
-├── components/               # Reusable React components (e.g., Navbar, Modal)
-├── pages/                    # Next.js pages (e.g., index.js, dashboard.js)
-│   ├── api/                  # API routes for handling backend requests
-│   │   └── project/          # Project-related API routes
-│   └── sites/                # Pages for individual project sites
-├── public/                   # Public assets (e.g., images, icons)
-├── styles/                   # Global CSS and Tailwind configurations
-├── .env                      # Environment variables (Not included in Git)
-├── README.md                 # Project documentation
-└── package.json              # Project dependencies and scripts
-```
 
 ### **Contributing**
 
