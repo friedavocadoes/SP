@@ -12,23 +12,21 @@ interface Materials {
   materialType: String;
   quantity: number;
   deliveryDate: String;
+  cost: number;
 }
 
 const sampleMaterials = [
   { materialType: "Sample", quantity: 0, deliveryDate: "2024-09-22", cost: 0 },
 ];
 
-const sampleSummary = {
-  totalQuantity: 350,
-  totalCost: 1500,
-};
-
 export default function SiteDetails({ params }: { params: { id: String } }) {
   const id = params.id;
-  const [materials, setMaterials] = useState(sampleMaterials);
-  const [summary, setSummary] = useState<any>(sampleSummary);
+  const [materials, setMaterials] = useState<Materials[]>([]);
   const [selectedDateRange, setSelectedDateRange] = useState<any>(null);
   const [filteredLogs, setFilteredLogs] = useState<Materials[]>([]);
+  const [groupedMaterials, setGroupedMaterials] = useState<
+    Record<string, Materials[]>
+  >({});
   const [parentInfo, setParentInfo] = useState({
     projectName: "",
     location: "",
@@ -60,6 +58,20 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
   useEffect(() => {
     infoSetter();
   }, [id]);
+
+  useEffect(() => {
+    const groupByDate = (materials: Materials[]) => {
+      return materials.reduce((acc, material) => {
+        const date = material.deliveryDate.substring(0, 10);
+        if (!acc[date]) acc[date] = [];
+        acc[date].push(material);
+        return acc;
+      }, {} as Record<string, Materials[]>);
+    };
+
+    // Set groupedMaterials whenever the materials state changes
+    setGroupedMaterials(groupByDate(materials));
+  }, [materials]);
 
   // Filter logs by selected date range
   useEffect(() => {
@@ -110,7 +122,8 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
             <div className="card bg-secondary shadow-xl">
               <div className="card-body">
                 <h2 className="card-title">Daily Material Logs</h2>
-                <ul className="list-disc list-inside">
+                {/* <ul className="list-disc list-inside">
+
                   {materials.map((material, idx) => (
                     <li key={idx} className="mb-2">
                       <div className="flex justify-between">
@@ -124,6 +137,29 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
                         </span>
                         <button className="btn btn-sm btn-info">Edit</button>
                       </div>
+                    </li>
+                  ))}
+                </ul> */}
+
+                <ul className="list-disc list-inside">
+                  {Object.entries(groupedMaterials).map(([date, materials]) => (
+                    <li key={date} className="mb-4">
+                      <div className="font-bold text-lg mb-2">{date}</div>
+                      <ul className="ml-4">
+                        {materials.map((material, idx) => (
+                          <li key={idx} className="mb-2">
+                            <div className="flex justify-between">
+                              <span>
+                                {material.materialType} - {material.quantity}{" "}
+                                units - Cost: {material.cost}
+                              </span>
+                              <button className="btn btn-sm btn-info">
+                                Edit
+                              </button>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
                     </li>
                   ))}
                 </ul>
