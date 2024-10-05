@@ -48,7 +48,7 @@ export default function SiteDashboard() {
       location: projectAddress,
     };
 
-    await axios.post("api/project/save", newProject);
+    await axios.post("/api/project/save", newProject);
 
     setShowModal(false); // Close the modal after adding project
     setProjectName(""); // Reset input fields

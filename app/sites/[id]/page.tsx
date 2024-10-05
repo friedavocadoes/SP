@@ -19,7 +19,7 @@ const sampleMaterials = [
   { materialType: "Sample", quantity: 0, deliveryDate: "2024-09-22", cost: 0 },
 ];
 
-export default function SiteDetails({ params }: { params: { id: String } }) {
+export default function SiteDetails({ params }: { params: { id: number } }) {
   const id = params.id;
   const [materials, setMaterials] = useState<Materials[]>([]);
   const [selectedDateRange, setSelectedDateRange] = useState<any>(null);
@@ -34,6 +34,12 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
   });
   const [manager, setManager] = useState("");
   const searchParams = useSearchParams();
+
+  // Add a Log vars
+  const [materialType, setMaterialType] = useState("");
+  const [quantity, setQuantity] = useState<Number>();
+  const [cost, setCost] = useState<Number>();
+  const [deliveryDate, setDeliveryDate] = useState<Date>();
 
   const getManager = async () => {
     const uData = await axios.get("/api/users/me");
@@ -53,6 +59,25 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
         setMaterials(result.dailyLogs);
       }
     }
+  };
+
+  const addLog = async () => {
+    const uData = await axios.get("/api/users/me");
+    const email = uData.data.data.email;
+
+    const log = {
+      email: email,
+      index: id,
+      materialType,
+      quantity,
+      cost,
+      deliveryDate,
+    };
+
+    await axios.post("/api/project/logAdd", log);
+    setCost(0);
+    setQuantity(0);
+    setMaterialType("");
   };
 
   useEffect(() => {
@@ -176,6 +201,10 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
                     type="text"
                     className="input input-bordered"
                     placeholder="e.g., Bricks"
+                    value={materialType}
+                    onChange={(e) => {
+                      setMaterialType(e.target.value);
+                    }}
                   />
                 </div>
                 <div className="form-control mb-4">
@@ -184,13 +213,37 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
                     type="number"
                     className="input input-bordered"
                     placeholder="e.g., 100"
+                    value={quantity}
+                    onChange={(e) => {
+                      setQuantity(Number(e.target.value));
+                    }}
+                  />
+                </div>
+                <div className="form-control mb-4">
+                  <label className="label">Cost</label>
+                  <input
+                    type="number"
+                    className="input input-bordered"
+                    placeholder="Total cost (in INR)"
+                    value={cost}
+                    onChange={(e) => {
+                      setCost(Number(e.target.value));
+                    }}
                   />
                 </div>
                 <div className="form-control mb-4">
                   <label className="label">Delivery Date</label>
-                  <input type="date" className="input input-bordered" />
+                  <input
+                    type="date"
+                    className="input input-bordered"
+                    onChange={(e) => {
+                      setDeliveryDate(Date(e.target.value));
+                    }}
+                  />
                 </div>
-                <button className="btn btn-accent">Add Log</button>
+                <button className="btn btn-accent" onClick={addLog}>
+                  Add Log
+                </button>
               </div>
             </div>
           </div>
