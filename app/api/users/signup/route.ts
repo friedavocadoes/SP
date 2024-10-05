@@ -55,6 +55,12 @@ export async function POST(request: NextRequest) {
               "quantity": 50,
               "cost": 700,
               "deliveryDate": "2024-09-28"
+            },
+            {
+              "materialType": "Bricks",
+              "quantity": 50,
+              "cost": 200,
+              "deliveryDate": "2024-09-28"
             }
           ]
         },

@@ -15,9 +15,7 @@ interface Materials {
 }
 
 const sampleMaterials = [
-  { materialType: "Bricks", quantity: 100, deliveryDate: "2024-09-22" },
-  { materialType: "Cement", quantity: 50, deliveryDate: "2024-09-23" },
-  { materialType: "Sand", quantity: 200, deliveryDate: "2024-09-24" },
+  { materialType: "Sample", quantity: 0, deliveryDate: "2024-09-22", cost: 0 },
 ];
 
 const sampleSummary = {
@@ -27,7 +25,7 @@ const sampleSummary = {
 
 export default function SiteDetails({ params }: { params: { id: String } }) {
   const id = params.id;
-  const [materials, setMaterials] = useState<Materials[]>(sampleMaterials);
+  const [materials, setMaterials] = useState(sampleMaterials);
   const [summary, setSummary] = useState<any>(sampleSummary);
   const [selectedDateRange, setSelectedDateRange] = useState<any>(null);
   const [filteredLogs, setFilteredLogs] = useState<Materials[]>([]);
@@ -54,6 +52,7 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
         const result = JSON.parse(dataString);
         console.log(result);
         setParentInfo(result);
+        setMaterials(result.dailyLogs);
       }
     }
   };
@@ -117,7 +116,11 @@ export default function SiteDetails({ params }: { params: { id: String } }) {
                       <div className="flex justify-between">
                         <span>
                           {material.materialType} - {material.quantity} units on{" "}
-                          {material.deliveryDate}
+                          {material.deliveryDate.substring(
+                            0,
+                            material.deliveryDate.length - 14
+                          )}{" "}
+                          Cost: {material.cost}
                         </span>
                         <button className="btn btn-sm btn-info">Edit</button>
                       </div>
