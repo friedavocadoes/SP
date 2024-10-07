@@ -40,8 +40,23 @@ function p2({ params }: { params: { id: number } }) {
     setProjectDetails(check);
   };
 
+  // Toggle Archive status of a project
+  const toggleArchive = async (val: boolean) => {
+    const email = await getEmail();
+    const datan = {
+      email: email,
+      index: id,
+      status: val,
+    };
+
+    await axios.post("/api/project/archive", datan);
+
+    await infoSetter();
+  };
+
   useEffect(() => {
     infoSetter();
+    console.log("here");
   }, []);
 
   return (
@@ -61,11 +76,29 @@ function p2({ params }: { params: { id: number } }) {
           <p className="text-lg">Description: {projectDetails?.description}</p>
           {projectDetails?.archived ? (
             <>
-              <div>This project is Archived</div>
+              <div className="mt-10 -mb-10">
+                <button
+                  className="btn bg-red-700 rounded-md "
+                  onClick={() => {
+                    toggleArchive(false);
+                  }}
+                >
+                  Unarchive
+                </button>
+              </div>
             </>
           ) : (
             <>
-              <div>This project is not archived</div>
+              <div className="mt-10 -mb-10">
+                <button
+                  className="btn bg-red-700 rounded-md "
+                  onClick={() => {
+                    toggleArchive(true);
+                  }}
+                >
+                  Archive
+                </button>
+              </div>
             </>
           )}
         </div>

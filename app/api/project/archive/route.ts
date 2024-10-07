@@ -7,7 +7,7 @@ connect()
 export async function POST(request: NextRequest){
     try {
         const reqBody = await request.json()
-        const {email, index, materialType, quantity, cost, deliveryDate} = reqBody
+        const {email, index, status} = reqBody
 
         //check if project exists
         const project = await projectModel.findOne({email})
@@ -16,20 +16,14 @@ export async function POST(request: NextRequest){
         if(!project){
             return NextResponse.json({error: "Project does not exist"}, {status: 400})
         }
-        
-        const log = {
-            materialType,
-            quantity,
-            cost,
-            deliveryDate,
-        };
-  
-        project.projects[index].dailyLogs.push(log);
 
-        
+
+        // console.log(project.projects[index].archived);
+        project.projects[index].archived = status;
+
         await project.save();
 
-        return NextResponse.json({ message: "Log added successfully", data: log }, { status: 200 });
+        return NextResponse.json({ message: "Project added successfully"}, { status: 200 });
   
 
     } catch (error: any) {
