@@ -74,6 +74,9 @@ function Navbar() {
                     <li>
                       <button onClick={logout}>Logout</button>
                     </li>
+                    <li>
+                      <Link href="/archived">Archived Projects</Link>
+                    </li>
                   </ul>
                 </details>
               </li>

@@ -11,6 +11,7 @@ const Prjt = [
     projectName: "",
     description: "",
     location: "",
+    archived: true,
   },
 ];
 
@@ -108,35 +109,40 @@ export default function SiteDashboard() {
             </>
           ) : (
             <>
-              {projectList.map((site, index) => (
-                <Link
-                  href={{
-                    pathname: `/sites/${index + 1}`,
-                    query: { data: JSON.stringify(projectList[index]) },
-                  }}
-                >
-                  <div
-                    key={index}
-                    className="card shadow-lg bg-neutral text-primary-content cursor-pointer"
-                  >
-                    <div className="card-body -m-2">
-                      <img
-                        src={siteImage}
-                        alt="site image"
-                        className="h-48 rounded-sm"
-                      />
-                      <h2 className="card-title text-accent">
-                        {site.projectName}
-                      </h2>
-                      <p className="text-secondary">{site.description}</p>
-                      <p className="text-secondary">
-                        <span className="font-bold text-primary">Address:</span>{" "}
-                        {site.location}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+              {projectList.map(
+                (site, index) =>
+                  !site.archived && (
+                    <Link
+                      href={{
+                        pathname: `/sites/${index + 1}`,
+                        query: { data: JSON.stringify(projectList[index]) },
+                      }}
+                    >
+                      <div
+                        key={index}
+                        className="card shadow-lg bg-neutral text-primary-content cursor-pointer"
+                      >
+                        <div className="card-body -m-2">
+                          <img
+                            src={siteImage}
+                            alt="site image"
+                            className="h-48 rounded-sm"
+                          />
+                          <h2 className="card-title text-accent">
+                            {site.projectName}
+                          </h2>
+                          <p className="text-secondary">{site.description}</p>
+                          <p className="text-secondary">
+                            <span className="font-bold text-primary">
+                              Address:
+                            </span>{" "}
+                            {site.location}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  )
+              )}
             </>
           )}
         </div>
