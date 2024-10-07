@@ -67,8 +67,15 @@ function p2({ params }: { params: { id: number } }) {
       >
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="z-10 text-center text-white">
+          {projectDetails?.archived && (
+            <>
+              <div className="mb-3 text-red-500">
+                This project is archived, unarchive to view in your dashboard.
+              </div>
+            </>
+          )}
           <h1 className="text-5xl font-bold mb-4">
-            Site {id} - {projectDetails?.projectName}
+            {projectDetails?.projectName}
           </h1>
           <p className="text-lg mb-2">Location: {projectDetails?.location}</p>
           <p className="text-lg">Description: {projectDetails?.description}</p>
