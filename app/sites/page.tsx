@@ -114,8 +114,7 @@ export default function SiteDashboard() {
                   !site.archived && (
                     <Link
                       href={{
-                        pathname: `/sites/${index + 1}`,
-                        query: { data: JSON.stringify(projectList[index]) },
+                        pathname: `/sites/${index}`,
                       }}
                     >
                       <div

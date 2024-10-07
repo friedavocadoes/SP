@@ -70,12 +70,15 @@ function Navbar() {
               <li>
                 <details>
                   <summary>{data}</summary>
-                  <ul className="bg-base-100 rounded-t-none p-2">
+                  <ul className="bg-base-100 rounded-t-none p-2 w-[130%]">
                     <li>
-                      <button onClick={logout}>Logout</button>
+                      <Link href="/sites">Your Dashboard</Link>
                     </li>
                     <li>
-                      <Link href="/archived">Archived Projects</Link>
+                      <Link href="/archived">Archived</Link>
+                    </li>
+                    <li className="hover:bg-red-900 ">
+                      <button onClick={logout}>Logout</button>
                     </li>
                   </ul>
                 </details>

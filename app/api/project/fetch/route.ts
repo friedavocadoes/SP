@@ -8,6 +8,7 @@ export async function POST(request: NextRequest){
     try {
         const reqBody = await request.json()
         const {email} = reqBody
+        console.log(email);
 
         //check if project exists
         const project = await projectModel.findOne({email})
