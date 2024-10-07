@@ -72,7 +72,7 @@ function page() {
                   site.archived && (
                     <Link
                       href={{
-                        pathname: `/sites/${index + 1}`,
+                        pathname: `/sites/${index}`,
                         query: { data: JSON.stringify(projectList[index]) },
                       }}
                     >

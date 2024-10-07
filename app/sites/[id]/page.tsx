@@ -1,9 +1,11 @@
 "use client";
-import React from "react";
-import { useState, useEffect } from "react";
-import Link from "next/link";
 import axios from "axios";
+import React from "react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 import Navbar from "@/app/components/Navbar";
+import DatePicker from "react-multi-date-picker";
+import { Calendar } from "react-multi-date-picker";
 
 interface Materials {
   materialType: String;
@@ -57,6 +59,15 @@ function p2({ params }: { params: { id: number } }) {
           </h1>
           <p className="text-lg mb-2">Location: {projectDetails?.location}</p>
           <p className="text-lg">Description: {projectDetails?.description}</p>
+          {projectDetails?.archived ? (
+            <>
+              <div>This project is Archived</div>
+            </>
+          ) : (
+            <>
+              <div>This project is not archived</div>
+            </>
+          )}
         </div>
       </div>
 

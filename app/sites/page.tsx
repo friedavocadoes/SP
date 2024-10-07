@@ -34,7 +34,7 @@ export default function SiteDashboard() {
     const email = await getEmail();
     console.log(email);
     const response = await axios.post("/api/project/fetch", { email });
-    console.log(response.data.data.projects);
+    // console.log(response.data.data.projects);
     setProjectList(response.data.data.projects);
     setIsLoading(false);
   };
