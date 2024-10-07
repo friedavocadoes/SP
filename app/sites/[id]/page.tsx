@@ -50,13 +50,11 @@ function p2({ params }: { params: { id: number } }) {
     };
 
     await axios.post("/api/project/archive", datan);
-
     await infoSetter();
   };
 
   useEffect(() => {
     infoSetter();
-    console.log("here");
   }, []);
 
   return (
@@ -78,7 +76,7 @@ function p2({ params }: { params: { id: number } }) {
             <>
               <div className="mt-10 -mb-10">
                 <button
-                  className="btn bg-red-700 rounded-md "
+                  className="btn bg-green-700 rounded-md "
                   onClick={() => {
                     toggleArchive(false);
                   }}
