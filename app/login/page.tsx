@@ -20,7 +20,7 @@ export default function LoginPage() {
       router.refresh();
       router.push("/sites");
     } catch (error: any) {
-      console.log("Login failed", error.message);
+      console.log("Login failed lol", error.message);
     } finally {
       setLoading(false);
     }
