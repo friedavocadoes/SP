@@ -135,12 +135,12 @@ function p2({ params }: { params: { id: number } }) {
       <div className="bg-base-200 grid grid-cols-4">
         {/* left */}
         <div className="col-span-3">
-          <div className="m-5 ml-2 text-primary hover:text-accent transition duration-3 ease-in-out">
+          <div className="m-5 ml-3 text-primary hover:text-accent transition duration-3 ease-in-out">
             <Link href="/sites">&lt; Back to Dashboard</Link>
           </div>
-          <div className="p-5">
+          <div className="p-5 pl-10">
             <h1 className="text-2xl font-bold mb-5">Material Logs</h1>
-            {materials ? (
+            {projectDetails ? (
               <ul className="list-disc list-inside">
                 {Object.entries(groupedMaterials).map(([date, materials]) => (
                   <li key={date} className="mb-4">
@@ -153,9 +153,6 @@ function p2({ params }: { params: { id: number } }) {
                               {material.materialType} - {material.quantity}{" "}
                               units - Cost: {material.cost}
                             </span>
-                            {/* <button className="btn btn-sm btn-info">
-                              Edit
-                            </button> */}
                           </div>
                         </li>
                       ))}
@@ -171,13 +168,15 @@ function p2({ params }: { params: { id: number } }) {
 
         {/* right */}
         <div className="flex col-span-1 bg-[#313131]">
-          <div className="card mx-auto mb-6">
+          <div className="card mx-auto">
             <div className="card-body">
-              <h2 className="card-title">Material Delivery Calendar</h2>
+              <h2 className="card-title mb-5">Material Delivery Calendar</h2>
               <Calendar
                 value={materials.map((mat) => mat.deliveryDate)}
                 multiple
                 className="z-1"
+
+                // style={{ backgroundColor: "black", color: "white" }}
               />
             </div>
           </div>
