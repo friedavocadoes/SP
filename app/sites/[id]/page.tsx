@@ -10,7 +10,7 @@ import { Calendar } from "react-multi-date-picker";
 interface Materials {
   materialType: String;
   quantity: number;
-  deliveryDate: String;
+  deliveryDate: Date;
   cost: number;
 }
 
@@ -66,7 +66,7 @@ function p2({ params }: { params: { id: number } }) {
   useEffect(() => {
     const groupByDate = (materials: Materials[]) => {
       return materials.reduce((acc, material) => {
-        const date = material.deliveryDate.substring(0, 10);
+        const date = material.deliveryDate.toString().substring(0, 10);
         if (!acc[date]) acc[date] = [];
         acc[date].push(material);
         return acc;
