@@ -128,37 +128,59 @@ function p2({ params }: { params: { id: number } }) {
         </div>
       </div>
 
-      <div className="min-h-screen bg-base-200 ">
-        {/* Back Link */}
-        {/* <div className="mb-5 -ml-4 text-primary hover:text-accent transition duration-3 ease-in-out">
-          <Link href="/sites">&lt; Back to Dashboard</Link>
-        </div> */}
+      {/* <div className="min-h-screen bg-base-200 "> */}
+      {/* Back Link */}
 
-        {/* Content Section */}
-        {/* <ul className="list-disc list-inside">
-          {Object.entries(groupedMaterials).map(([date, materials]) => (
-            <li key={date} className="mb-4">
-              <div className="font-bold text-lg mb-2">{date}</div>
-              <ul className="ml-4">
-                {materials.map((material, idx) => (
-                  <li key={idx} className="mb-2">
-                    <div className="flex justify-between">
-                      <span>
-                        {material.materialType} - {material.quantity} units -
-                        Cost: {material.cost}
-                      </span>
-                      <button className="btn btn-sm btn-info">Edit</button>
-                    </div>
+      {/* Content Section */}
+      <div className="bg-base-200 grid grid-cols-4">
+        {/* left */}
+        <div className="col-span-3">
+          <div className="m-5 ml-2 text-primary hover:text-accent transition duration-3 ease-in-out">
+            <Link href="/sites">&lt; Back to Dashboard</Link>
+          </div>
+          <div className="p-5">
+            <h1 className="text-2xl font-bold mb-5">Material Logs</h1>
+            {materials ? (
+              <ul className="list-disc list-inside">
+                {Object.entries(groupedMaterials).map(([date, materials]) => (
+                  <li key={date} className="mb-4">
+                    <div className="font-bold text-lg mb-2">{date}</div>
+                    <ul className="ml-4">
+                      {materials.map((material, idx) => (
+                        <li key={idx} className="mb-2">
+                          <div className="flex justify-between">
+                            <span>
+                              {material.materialType} - {material.quantity}{" "}
+                              units - Cost: {material.cost}
+                            </span>
+                            {/* <button className="btn btn-sm btn-info">
+                              Edit
+                            </button> */}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
                   </li>
                 ))}
               </ul>
-            </li>
-          ))}
-        </ul> */}
+            ) : (
+              <h1>Empty</h1>
+            )}
+          </div>
+        </div>
 
-        <div className="grid grid-cols-4">
-          <div className="col-span-3 bg-slate-500">hi</div>
-          <div className="col-span-1 bg-white">hi</div>
+        {/* right */}
+        <div className="flex col-span-1 bg-[#313131]">
+          <div className="card mx-auto mb-6">
+            <div className="card-body">
+              <h2 className="card-title">Material Delivery Calendar</h2>
+              <Calendar
+                value={materials.map((mat) => mat.deliveryDate)}
+                multiple
+                className="z-1"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </>
