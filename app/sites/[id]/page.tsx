@@ -16,7 +16,7 @@ interface Materials {
 
 interface Project {
   archived: Boolean;
-  dailyLogs: [];
+  dailyLogs: Materials[];
   description: String;
   location: String;
   projectName: String;
@@ -25,6 +25,10 @@ interface Project {
 function p2({ params }: { params: { id: number } }) {
   const id = params.id;
   const [projectDetails, setProjectDetails] = useState<Project>();
+  const [materials, setMaterials] = useState<Materials[]>([]);
+  const [groupedMaterials, setGroupedMaterials] = useState<
+    Record<string, Materials[]>
+  >({});
 
   const getEmail = async () => {
     const uData = await axios.get("/api/users/me");
@@ -38,6 +42,7 @@ function p2({ params }: { params: { id: number } }) {
     const response = await axios.post("/api/project/fetch", { email });
     const check = response.data.data.projects[id];
     setProjectDetails(check);
+    setMaterials(check.dailyLogs);
   };
 
   // Toggle Archive status of a project
@@ -56,6 +61,20 @@ function p2({ params }: { params: { id: number } }) {
   useEffect(() => {
     infoSetter();
   }, []);
+
+  // To group materials
+  useEffect(() => {
+    const groupByDate = (materials: Materials[]) => {
+      return materials.reduce((acc, material) => {
+        const date = material.deliveryDate.substring(0, 10);
+        if (!acc[date]) acc[date] = [];
+        acc[date].push(material);
+        return acc;
+      }, {} as Record<string, Materials[]>);
+    };
+
+    setGroupedMaterials(groupByDate(materials));
+  }, [materials]);
 
   return (
     <>
@@ -109,15 +128,39 @@ function p2({ params }: { params: { id: number } }) {
         </div>
       </div>
 
-      <div className="min-h-screen bg-base-200 p-10 pt-8">
+      <div className="min-h-screen bg-base-200 ">
         {/* Back Link */}
-        <div className="mb-5 -ml-4 text-primary hover:text-accent transition duration-3 ease-in-out">
+        {/* <div className="mb-5 -ml-4 text-primary hover:text-accent transition duration-3 ease-in-out">
           <Link href="/sites">&lt; Back to Dashboard</Link>
+        </div> */}
+
+        {/* Content Section */}
+        {/* <ul className="list-disc list-inside">
+          {Object.entries(groupedMaterials).map(([date, materials]) => (
+            <li key={date} className="mb-4">
+              <div className="font-bold text-lg mb-2">{date}</div>
+              <ul className="ml-4">
+                {materials.map((material, idx) => (
+                  <li key={idx} className="mb-2">
+                    <div className="flex justify-between">
+                      <span>
+                        {material.materialType} - {material.quantity} units -
+                        Cost: {material.cost}
+                      </span>
+                      <button className="btn btn-sm btn-info">Edit</button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul> */}
+
+        <div className="grid grid-cols-4">
+          <div className="col-span-3 bg-slate-500">hi</div>
+          <div className="col-span-1 bg-white">hi</div>
         </div>
       </div>
-
-      {/* Content Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
     </>
   );
 }
