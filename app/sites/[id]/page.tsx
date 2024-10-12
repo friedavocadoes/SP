@@ -128,9 +128,6 @@ function p2({ params }: { params: { id: number } }) {
         </div>
       </div>
 
-      {/* <div className="min-h-screen bg-base-200 "> */}
-      {/* Back Link */}
-
       {/* Content Section */}
       <div className="bg-base-200 grid grid-cols-4">
         {/* left */}
@@ -138,6 +135,7 @@ function p2({ params }: { params: { id: number } }) {
           <div className="m-5 ml-3 text-primary hover:text-accent transition duration-3 ease-in-out">
             <Link href="/sites">&lt; Back to Dashboard</Link>
           </div>
+
           <div className="p-5 pl-10">
             <h1 className="text-2xl font-bold mb-5">Material Logs</h1>
             {projectDetails ? (
