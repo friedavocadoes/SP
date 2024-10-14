@@ -242,7 +242,7 @@ export default function SiteDetails({ params }: { params: { id: number } }) {
                   />
                 </div>
                 <button className="btn btn-accent" onClick={addLog}>
-                  Add Lasdasdadsog
+                  Add Log
                 </button>
               </div>
             </div>
