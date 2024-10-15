@@ -253,7 +253,7 @@ export default function SiteDetails({ params }: { params: { id: number } }) {
             {/* Calendar */}
             <div className="card bg-accent shadow-xl mb-6">
               <div className="card-body">
-                <h2 className="card-title">Material Delivery Calendar</h2>
+                <h2 className="card-title">Materialss Delivery Calendar</h2>
                 <Calendar
                   value={materials.map((mat) => mat.deliveryDate)}
                   multiple
