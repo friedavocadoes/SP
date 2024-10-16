@@ -32,7 +32,7 @@ export default function LoginPage() {
       <div className="hero bg-base-200 min-h-screen -mt-14">
         <div className="hero-content flex-col">
           <div className="text-center lg:text-left align-center">
-            <h1 className="text-5xl font-bold text-center">Login</h1>
+            <h1 className="text-5xl font-bold text-center">Loginn</h1>
             <p className="pt-4 text-center">
               {loading ? "Logging in..." : "Welcome back!"}
             </p>
